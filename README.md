@@ -10,10 +10,11 @@ Plataforma de gestión de cursos educativos. Backend desarrollado en Java con TD
 
 ## Estructura del proyecto
 
+```code
 src/
 ├── main/java/com/campusvirtual/ # Código de producción
 └── test/java/com/campusvirtual/ # Pruebas unitarias
-
+```
 
 ## Cómo ejecutar
 ```bash
