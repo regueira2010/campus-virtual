@@ -1,20 +1,21 @@
 package com.campusvirtual;
 
-import static org.junit.Assert.assertTrue;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+public class AppTest {
 
-/**
- * Unit test for simple App.
- */
-public class AppTest 
-{
-    /**
-     * Rigorous Test :-)
-     */
     @Test
-    public void shouldAnswerWithTrue()
-    {
-        assertTrue( true );
+    void testSumar() {
+        // Arrange: preparar los datos
+        Calculadora calc = new Calculadora();
+        int a = 2;
+        int b = 3;
+
+        // Act: ejecutar el método
+        int resultado = calc.sumar(a, b);
+
+        // Assert: verificar el resultado
+        assertEquals(5, resultado, "2 + 3 debería ser 5");
     }
 }
