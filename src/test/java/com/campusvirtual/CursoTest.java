@@ -1,0 +1,24 @@
+package com.campusvirtual;
+
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class CursoTest {
+
+    @Test
+    void shouldCreateCourseWithDefaultValues() {
+        // Arrange: preparar los datos
+        String titulo = "Certificación React";
+        String descripcion = "Curso completo de React desde cero";
+
+        // Act: ejecutar el método (crear el curso)
+        Curso curso = new Curso(titulo, descripcion);
+
+        // Assert: verificar el resultado
+        assertNotNull(curso, "El curso no debería ser nulo");
+        assertEquals(titulo, curso.getTitulo(), "El título debería coincidir");
+        assertEquals(descripcion, curso.getDescripcion(), "La descripción debería coincidir");
+        assertEquals("EN_BORRADOR", curso.getEstado(), "El estado inicial debería ser EN_BORRADOR");
+        assertTrue(curso.getModulos().isEmpty(), "La lista de módulos debería estar vacía");
+    }
+}
