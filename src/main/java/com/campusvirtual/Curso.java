@@ -10,6 +10,10 @@ public class Curso {
     private List<String> modulos;
 
     public Curso(String titulo, String descripcion) {
+        // Validación: el título no puede ser nulo, vacío o solo espacios
+        if (titulo == null || titulo.trim().isEmpty()) {
+            throw new TituloInvalidoException("El título del curso no puede estar vacío");
+        }
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.estado = "EN_BORRADOR";

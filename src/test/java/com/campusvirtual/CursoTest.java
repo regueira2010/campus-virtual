@@ -1,6 +1,9 @@
 package com.campusvirtual;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CursoTest {
@@ -20,5 +23,17 @@ public class CursoTest {
         assertEquals(descripcion, curso.getDescripcion(), "La descripción debería coincidir");
         assertEquals("EN_BORRADOR", curso.getEstado(), "El estado inicial debería ser EN_BORRADOR");
         assertTrue(curso.getModulos().isEmpty(), "La lista de módulos debería estar vacía");
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = { "", "   ", "  " })
+    void shouldThrowExceptionWhenTituloIsInvalid(String tituloInvalido) {
+        // Arrange
+        String descripcion = "Descripción válida";
+
+        // Act & Assert
+        assertThrows(TituloInvalidoException.class, () -> {
+            new Curso(tituloInvalido, descripcion);
+        });
     }
 }
