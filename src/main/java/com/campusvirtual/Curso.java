@@ -8,16 +8,20 @@ public class Curso {
     private String descripcion;
     private String estado;
     private List<String> modulos;
+    private Notificador notificador;
 
-    public Curso(String titulo, String descripcion) {
-        // Validación: el título no puede ser nulo, vacío o solo espacios
+    public Curso(String titulo, String descripcion, Notificador notificador) {
         if (titulo == null || titulo.trim().isEmpty()) {
             throw new TituloInvalidoException("El título del curso no puede estar vacío");
         }
+
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.estado = "EN_BORRADOR";
         this.modulos = new ArrayList<>();
+        this.notificador = notificador;
+
+        notificador.enviar("admin@campus.com", "Curso creado: " + titulo);
     }
 
     public String getTitulo() {
