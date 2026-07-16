@@ -7,7 +7,7 @@ public class Curso {
     private String titulo;
     private String descripcion;
     private String estado;
-    private List<String> modulos;
+    private List<Modulo> modulos;
     private Notificador notificador;
 
     public Curso(String titulo, String descripcion, Notificador notificador) {
@@ -24,6 +24,38 @@ public class Curso {
         notificador.enviar("admin@campus.com", "Curso creado: " + titulo);
     }
 
+    public void agregarModulo(Modulo modulo) {
+        if (this.modulos.size() >= 30) {
+            throw new IllegalStateException("El curso no puede superar los 30 módulos");
+        }
+        this.modulos.add(modulo);
+    }
+
+    public void removerModulo(Modulo modulo) {
+        if ("PUBLICADO".equals(this.estado)) {
+            throw new IllegalStateException("No se pueden eliminar módulos de un curso publicado");
+        }
+        this.modulos.remove(modulo);
+    }
+
+    public void publicar() {
+        if (this.modulos.isEmpty()) {
+            throw new IllegalStateException("No se puede publicar un curso sin módulos");
+        }
+        this.estado = "PUBLICADO";
+    }
+
+    public void actualizarInformacion(String nuevoTitulo, String nuevaDescripcion) {
+        if (!"EN_BORRADOR".equals(this.estado)) {
+            throw new IllegalStateException("Solo se puede actualizar la información en borrador");
+        }
+        if (nuevoTitulo == null || nuevoTitulo.trim().isEmpty()) {
+            throw new TituloInvalidoException("El título no puede estar vacío");
+        }
+        this.titulo = nuevoTitulo;
+        this.descripcion = nuevaDescripcion;
+    }
+
     public String getTitulo() {
         return titulo;
     }
@@ -36,7 +68,7 @@ public class Curso {
         return estado;
     }
 
-    public List<String> getModulos() {
+    public List<Modulo> getModulos() {
         return modulos;
     }
 }
