@@ -11,7 +11,7 @@ import static org.mockito.Mockito.*;
 public class CursoConMockitoTest {
 
     @Mock
-    private Notificador notificadorMock;
+    private NotificationService notificadorMock;
 
     @Test
     void shouldSendNotificationWhenCourseIsCreated() {
@@ -22,7 +22,7 @@ public class CursoConMockitoTest {
         String mensajeEsperado = "Curso creado: " + titulo;
 
         // Act
-        Curso curso = new Curso(titulo, descripcion, notificadorMock);
+        Course curso = new Course(titulo, descripcion, notificadorMock);
 
         // Assert - verificar que el notificador fue llamado exactamente una vez
         verify(notificadorMock, times(1)).enviar(destinatarioEsperado, mensajeEsperado);

@@ -16,7 +16,7 @@ public class CursoTest {
         String descripcion = "Curso completo de React desde cero";
 
         // Act
-        Curso curso = new Curso(titulo, descripcion, notificador);
+        Course curso = new Course(titulo, descripcion, notificador);
 
         // Assert - estado del curso
         assertNotNull(curso, "El curso no debería ser nulo");
@@ -40,15 +40,15 @@ public class CursoTest {
         String descripcion = "Descripción válida";
 
         // Act & Assert
-        assertThrows(TituloInvalidoException.class, () -> {
-            new Curso(tituloInvalido, descripcion, notificador);
+        assertThrows(InvalidTitleException.class, () -> {
+            new Course(tituloInvalido, descripcion, notificador);
         });
     }
 
     @Test // Debe lanzar excepción al intentar publicar un curso que no tiene módulos
     void shouldThrowExceptionWhenPublishingCourseWithoutAnyModules() {
         NotificadorStub notificador = new NotificadorStub();
-        Curso curso = new Curso("React Básico", "Descripción", notificador);
+        Course curso = new Course("React Básico", "Descripción", notificador);
 
         assertThrows(IllegalStateException.class, () -> {
             curso.publicar();
@@ -58,8 +58,8 @@ public class CursoTest {
     @Test // Debe cambiar el estado a PUBLICADO cuando el curso tiene al menos un módulo
     void shouldChangeStatusToPublishedWhenCourseHasAtLeastOneModule() {
         NotificadorStub notificador = new NotificadorStub();
-        Curso curso = new Curso("React Básico", "Descripción", notificador);
-        Modulo modulo = new Modulo("Introducción a React");
+        Course curso = new Course("React Básico", "Descripción", notificador);
+        Module modulo = new Module("Introducción a React");
 
         curso.agregarModulo(modulo);
         curso.publicar();
@@ -70,21 +70,21 @@ public class CursoTest {
     @Test // Debe lanzar excepción al intentar agregar más de 30 módulos al curso
     void shouldThrowExceptionWhenAddingMoreThanMaxLimitOfThirtyModules() {
         NotificadorStub notificador = new NotificadorStub();
-        Curso curso = new Curso("React Básico", "Descripción", notificador);
+        Course curso = new Course("React Básico", "Descripción", notificador);
 
         for (int i = 0; i < 30; i++) {
-            curso.agregarModulo(new Modulo("Módulo " + i));
+            curso.agregarModulo(new Module("Módulo " + i));
         }
 
         assertThrows(IllegalStateException.class, () -> {
-            curso.agregarModulo(new Modulo("Módulo 31"));
+            curso.agregarModulo(new Module("Módulo 31"));
         });
     }
 
     @Test // Debe permitir modificar el título y la descripción si el curso está en BORRADOR
     void shouldAllowModifyingTitleAndDescriptionWhenCourseIsDraft() {
         NotificadorStub notificador = new NotificadorStub();
-        Curso curso = new Curso("React Básico", "Descripción", notificador);
+        Course curso = new Course("React Básico", "Descripción", notificador);
 
         curso.actualizarInformacion("React Avanzado", "Nueva descripción");
 
@@ -95,8 +95,8 @@ public class CursoTest {
     @Test // Debe lanzar excepción al intentar modificar el título o la descripción si el curso ya está PUBLICADO
     void shouldThrowExceptionWhenModifyingTitleOrDescriptionOnPublishedCourse() {
         NotificadorStub notificador = new NotificadorStub();
-        Curso curso = new Curso("React Básico", "Descripción", notificador);
-        curso.agregarModulo(new Modulo("Módulo 1"));
+        Course curso = new Course("React Básico", "Descripción", notificador);
+        curso.agregarModulo(new Module("Módulo 1"));
         curso.publicar();
 
         assertThrows(IllegalStateException.class, () -> {
@@ -107,8 +107,8 @@ public class CursoTest {
     @Test // Debe lanzar excepción al intentar eliminar un módulo si el curso ya está PUBLICADO
     void shouldThrowExceptionWhenRemovingModuleFromPublishedCourse() {
         NotificadorStub notificador = new NotificadorStub();
-        Curso curso = new Curso("React Básico", "Descripción", notificador);
-        Modulo modulo = new Modulo("Módulo 1");
+        Course curso = new Course("React Básico", "Descripción", notificador);
+        Module modulo = new Module("Módulo 1");
         curso.agregarModulo(modulo);
         curso.publicar();
 

@@ -1,6 +1,6 @@
 package com.campusvirtual;
 
-public class NotificadorStub implements Notificador {
+public class NotificadorStub implements NotificationService {
     private String ultimoDestinatario;
     private String ultimoMensaje;
     private boolean fueLlamado = false;

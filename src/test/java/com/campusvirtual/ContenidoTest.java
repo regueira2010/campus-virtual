@@ -15,7 +15,7 @@ public class ContenidoTest {
         int orden = 1;
 
         // Act
-        Contenido contenido = new Contenido(titulo, orden);
+        Content contenido = new Content(titulo, orden);
 
         // Assert
         assertNotNull(contenido.getId(), "El ID del contenido no debe ser nulo");
@@ -29,7 +29,7 @@ public class ContenidoTest {
     void shouldThrowExceptionWhenTituloIsInvalid(String tituloInvalido) {
         // Act & Assert
         assertThrows(TituloContenidoInvalidoException.class, () -> {
-            new Contenido(tituloInvalido, 1);
+            new Content(tituloInvalido, 1);
         });
     }
 
@@ -37,7 +37,7 @@ public class ContenidoTest {
     void shouldThrowExceptionWhenTituloIsNull() {
         // Act & Assert
         assertThrows(TituloContenidoInvalidoException.class, () -> {
-            new Contenido(null, 1);
+            new Content(null, 1);
         });
     }
 
@@ -45,7 +45,7 @@ public class ContenidoTest {
     void shouldThrowExceptionWhenOrdenIsLessThanOne() {
         // Act & Assert
         assertThrows(IllegalArgumentException.class, () -> {
-            new Contenido("Clase 1", 0);
+            new Content("Clase 1", 0);
         });
     }
 }
