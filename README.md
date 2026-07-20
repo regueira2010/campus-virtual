@@ -1,25 +1,24 @@
-# Campus Virtual
+# Campus Virtual - Core Domain
 
-Plataforma de gestión de cursos educativos. Backend desarrollado en Java con TDD, Maven y Spring Boot.
+Campus Virtual is an e-learning platform. This repository contains the Pure Domain Core (Core de Entidades de Dominio Puro), completely isolated from any frameworks, databases, or external interfaces, following the principles of Clean Architecture / Hexagonal Architecture.
 
-## Tecnologías
-- Java 25
-- Maven
-- JUnit 5
-- Mockito
+## Architecture Highlights
 
-## Estructura del proyecto
+* **Pure Java:** No Spring, JPA, or web annotations. The domain depends only on itself.
+* **Dependency Inversion:** All external interactions (such as notifications) are modeled as interfaces (`NotificationService`) and injected via constructors.
+* **English Nomenclature:** Clean, modular code entirely in English.
 
-```code
-src/
-├── main/java/com/campusvirtual/ # Código de producción
-└── test/java/com/campusvirtual/ # Pruebas unitarias
-```
+## Testing & Quality Assurance
 
-## Cómo ejecutar
+This project uses JUnit 5 and Mockito to ensure the highest standards of quality:
+
+* **Rigorous AAA Pattern:** All tests are strictly structured using Arrange, Act, and Assert phases.
+* **Business Exceptions:** Custom domain exceptions (`InvalidTitleException`, `InvalidContentTitleException`, `InvalidModuleTitleException`) are verified thoroughly using `assertThrows`.
+* **100% Coverage:** The test suite guarantees 100% Line and Branch coverage, ensuring no orphan logic exists across all domain entities (`Course`, `Module`, `Content`, `Progress`).
+
+## How to Verify
+
+To run the automated tests and generate the JaCoCo coverage report, execute the following command in the root of the project:
+
 ```bash
-# Compilar
-javac -d target/classes src/main/java/com/campusvirtual/App.java
-
-# Ejecutar
-java -cp target/classes com.campusvirtual.App
+mvn clean test jacoco:report
