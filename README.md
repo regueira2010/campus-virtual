@@ -7,6 +7,7 @@ Campus Virtual is an e-learning platform. This repository contains the Pure Doma
 * **Pure Java:** No Spring, JPA, or web annotations. The domain depends only on itself.
 * **Dependency Inversion:** All external interactions (such as notifications) are modeled as interfaces (`NotificationService`) and injected via constructors.
 * **English Nomenclature:** Clean, modular code entirely in English.
+* **Architecture Specifications:** Refer to the [Domain Architecture & Design](docs/domain-architecture.md) documentation for a detailed overview of class diagrams, business invariants, and domain rules.
 
 ## Testing & Quality Assurance
 
