@@ -1,6 +1,7 @@
 package com.campusvirtual;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.Mock;
@@ -19,6 +20,7 @@ public class ProgressTest {
     }
 
     @Test
+    @DisplayName("Should initialize student progress at 0% and empty completed list upon enrollment")
     void shouldInitializeWithZeroPercentProgressAndEmptyCompletedListWhenStudentEnrolls() {
         // Arrange
         Course course = createCourse("Advanced Java");
@@ -35,6 +37,7 @@ public class ProgressTest {
     }
 
     @Test
+    @DisplayName("Should allow completing the first content directly without any prerequisites")
     void shouldAllowCompletingTheFirstContentDirectlyWithoutAnyPredecessors() {
         // Arrange
         Course course = createCourse("Advanced Java");
@@ -55,6 +58,7 @@ public class ProgressTest {
     }
 
     @Test
+    @DisplayName("Should throw IllegalStateException when attempting to complete content with pending previous lessons")
     void shouldThrowIllegalStateExceptionWhenAttemptingToCompleteContentWithPendingPredecessors() {
         // Arrange
         Course course = createCourse("Advanced Java");
@@ -78,6 +82,7 @@ public class ProgressTest {
     }
 
     @Test
+    @DisplayName("Should complete content successfully when all previous contents are completed")
     void shouldAllowCompletingContentSuccessfullyWhenAllPreviousContentsAreAlreadyCompleted() {
         // Arrange
         Course course = createCourse("Advanced Java");
@@ -101,6 +106,7 @@ public class ProgressTest {
     }
 
     @Test
+    @DisplayName("Should ignore completion request if the content was already completed")
     void shouldIgnoreRequestAndNotDuplicateEntryWhenContentIsAlreadyMarkedAsCompleted() {
         // Arrange
         Course course = createCourse("Advanced Java");
@@ -122,6 +128,7 @@ public class ProgressTest {
     }
 
     @Test
+    @DisplayName("Should calculate accurate progress percentage based on total completed contents")
     void shouldCalculateAccurateProgressPercentageBasedOnTotalCompletedContents() {
         // Arrange
         Course course = createCourse("Advanced Java");
@@ -147,6 +154,7 @@ public class ProgressTest {
     }
 
     @Test
+    @DisplayName("Should return exactly 0% progress when the course has no contents")
     void shouldReturnZeroPercentProgressWhenCourseDoesNotContainAnyContents() {
         // Arrange
         Course course = createCourse("Empty Java");
@@ -164,6 +172,7 @@ public class ProgressTest {
     }
 
     @ParameterizedTest
+    @DisplayName("Should throw IllegalArgumentException when student ID is empty or blank")
     @org.junit.jupiter.params.provider.ValueSource(strings = { "", "   ", "  " })
     void shouldThrowExceptionWhenStudentIdIsInvalid(String invalidStudentId) {
         // Lines 13-14 coverage: invalid studentId
@@ -174,6 +183,7 @@ public class ProgressTest {
     }
 
     @Test
+    @DisplayName("Should throw IllegalArgumentException when student ID is null")
     void shouldThrowExceptionWhenStudentIdIsNull() {
         // Lines 13-14 coverage: null studentId
         Course course = createCourse("Java Course");
@@ -183,6 +193,7 @@ public class ProgressTest {
     }
 
     @Test
+    @DisplayName("Should throw IllegalArgumentException when course is null")
     void shouldThrowExceptionWhenCourseIsNull() {
         // Lines 16-17 coverage: null course
         assertThrows(IllegalArgumentException.class, () -> {

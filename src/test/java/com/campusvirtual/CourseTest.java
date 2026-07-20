@@ -1,6 +1,7 @@
 package com.campusvirtual;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -21,6 +22,7 @@ public class CourseTest {
     }
 
     @Test
+    @DisplayName("Should create course successfully with default values and notify admin")
     void shouldCreateCourseWithDefaultValues() {
         // Arrange
         String title = "React Certification";
@@ -41,6 +43,7 @@ public class CourseTest {
     }
 
     @ParameterizedTest
+    @DisplayName("Should throw InvalidTitleException when course title is empty or blank on creation")
     @ValueSource(strings = { "", "   ", "  " })
     void shouldThrowExceptionWhenTitleIsInvalid(String invalidTitle) {
         // Arrange
@@ -53,6 +56,7 @@ public class CourseTest {
     }
 
     @Test
+    @DisplayName("Should throw IllegalStateException when publishing course without modules")
     void shouldThrowExceptionWhenPublishingCourseWithoutAnyModules() {
         // Arrange
         Course course = new Course("Basic React", "Description", notificationService);
@@ -64,6 +68,7 @@ public class CourseTest {
     }
 
     @Test
+    @DisplayName("Should change status to PUBLISHED when course is published with at least one module")
     void shouldChangeStatusToPublishedWhenCourseHasAtLeastOneModule() {
         // Arrange
         Course course = new Course("Basic React", "Description", notificationService);
@@ -78,6 +83,7 @@ public class CourseTest {
     }
 
     @Test
+    @DisplayName("Should throw IllegalStateException when exceeding maximum limit of thirty modules")
     void shouldThrowExceptionWhenAddingMoreThanMaxLimitOfThirtyModules() {
         // Arrange
         Course course = new Course("Basic React", "Description", notificationService);
@@ -93,6 +99,7 @@ public class CourseTest {
     }
 
     @Test
+    @DisplayName("Should allow updating title and description when course status is DRAFT")
     void shouldAllowModifyingTitleAndDescriptionWhenCourseIsDraft() {
         // Arrange
         Course course = new Course("Basic React", "Description", notificationService);
@@ -106,6 +113,7 @@ public class CourseTest {
     }
 
     @Test
+    @DisplayName("Should throw IllegalStateException when updating title or description on a published course")
     void shouldThrowExceptionWhenModifyingTitleOrDescriptionOnPublishedCourse() {
         // Arrange
         Course course = new Course("Basic React", "Description", notificationService);
@@ -119,6 +127,7 @@ public class CourseTest {
     }
 
     @Test
+    @DisplayName("Should throw IllegalStateException when removing module from a published course")
     void shouldThrowExceptionWhenRemovingModuleFromPublishedCourse() {
         // Arrange
         Course course = new Course("Basic React", "Description", notificationService);
@@ -133,6 +142,7 @@ public class CourseTest {
     }
 
     @Test
+    @DisplayName("Should throw InvalidTitleException when course title is null on creation")
     void shouldThrowExceptionWhenCourseTitleIsNullOnCreation() {
         // Line 15 coverage: null title
         assertThrows(InvalidTitleException.class, () -> {
@@ -141,6 +151,7 @@ public class CourseTest {
     }
 
     @Test
+    @DisplayName("Should remove module successfully when course status is DRAFT")
     void shouldRemoveModuleSuccessfullyWhenCourseIsDraft() {
         // Lines 36-39 coverage: successfully removing a module in DRAFT status
         Course course = new Course("Basic React", "Description", notificationService);
@@ -153,6 +164,7 @@ public class CourseTest {
     }
 
     @ParameterizedTest
+    @DisplayName("Should throw InvalidTitleException when course title is empty or blank on update")
     @ValueSource(strings = { "", "   ", "  " })
     void shouldThrowExceptionWhenUpdatingWithInvalidTitle(String invalidTitle) {
         // Lines 53-54 coverage: updating with blank title
@@ -164,6 +176,7 @@ public class CourseTest {
     }
 
     @Test
+    @DisplayName("Should throw InvalidTitleException when course title is null on update")
     void shouldThrowExceptionWhenUpdatingWithNullTitle() {
         // Lines 53-54 coverage: updating with null title
         Course course = new Course("Basic React", "Description", notificationService);

@@ -1,5 +1,6 @@
 package com.campusvirtual;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -9,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ContentTest {
 
     @Test
+    @DisplayName("Should create content successfully with valid title and order")
     void shouldCreateContentSuccessfully() {
         // Arrange
         String title = "Introduction to React";
@@ -25,6 +27,7 @@ public class ContentTest {
     }
 
     @ParameterizedTest
+    @DisplayName("Should throw InvalidContentTitleException when content title is invalid or empty")
     @ValueSource(strings = { "", "   ", "  " })
     void shouldThrowExceptionWhenTitleIsInvalid(String invalidTitle) {
         // Act & Assert
@@ -34,6 +37,7 @@ public class ContentTest {
     }
 
     @Test
+    @DisplayName("Should throw InvalidContentTitleException when content title is null")
     void shouldThrowExceptionWhenTitleIsNull() {
         // Act & Assert
         assertThrows(InvalidContentTitleException.class, () -> {
@@ -42,6 +46,7 @@ public class ContentTest {
     }
 
     @Test
+    @DisplayName("Should throw IllegalArgumentException when content order is less than one")
     void shouldThrowExceptionWhenOrderIsLessThanOne() {
         // Act & Assert
         assertThrows(IllegalArgumentException.class, () -> {
