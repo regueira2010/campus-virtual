@@ -22,3 +22,9 @@ To run the automated tests and generate the JaCoCo coverage report, execute the 
 
 ```bash
 mvn clean test jacoco:report
+```
+
+## 📊 Coverage Evidence Route
+
+After running the command above, you can find and open the detailed HTML coverage report at:
+* `target/site/jacoco/index.html`
