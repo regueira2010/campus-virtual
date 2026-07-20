@@ -52,4 +52,9 @@ public class ModuleTest {
         Module module = new Module("Module 1");
         assertThrows(IllegalArgumentException.class, () -> module.addContent(null));
     }
+
+    @Test
+    void shouldThrowExceptionWhenTitleIsNull() {
+        assertThrows(InvalidModuleTitleException.class, () -> new Module(null));
+    }
 }

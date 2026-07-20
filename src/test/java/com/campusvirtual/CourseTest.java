@@ -131,4 +131,45 @@ public class CourseTest {
             course.removeModule(module);
         });
     }
+
+    @Test
+    void shouldThrowExceptionWhenCourseTitleIsNullOnCreation() {
+        // Line 15 coverage: null title
+        assertThrows(InvalidTitleException.class, () -> {
+            new Course(null, "Description", notificationService);
+        });
+    }
+
+    @Test
+    void shouldRemoveModuleSuccessfullyWhenCourseIsDraft() {
+        // Lines 36-39 coverage: successfully removing a module in DRAFT status
+        Course course = new Course("Basic React", "Description", notificationService);
+        Module module = new Module("Module 1");
+        course.addModule(module);
+
+        course.removeModule(module);
+
+        assertTrue(course.getModules().isEmpty(), "Module list should be empty after removal");
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = { "", "   ", "  " })
+    void shouldThrowExceptionWhenUpdatingWithInvalidTitle(String invalidTitle) {
+        // Lines 53-54 coverage: updating with blank title
+        Course course = new Course("Basic React", "Description", notificationService);
+
+        assertThrows(InvalidTitleException.class, () -> {
+            course.updateInformation(invalidTitle, "New Description");
+        });
+    }
+
+    @Test
+    void shouldThrowExceptionWhenUpdatingWithNullTitle() {
+        // Lines 53-54 coverage: updating with null title
+        Course course = new Course("Basic React", "Description", notificationService);
+
+        assertThrows(InvalidTitleException.class, () -> {
+            course.updateInformation(null, "New Description");
+        });
+    }
 }

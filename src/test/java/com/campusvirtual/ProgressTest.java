@@ -2,6 +2,7 @@ package com.campusvirtual;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -160,5 +161,32 @@ public class ProgressTest {
 
     private Course createCourse(String title) {
         return new Course(title, "Description", notificationService);
+    }
+
+    @ParameterizedTest
+    @org.junit.jupiter.params.provider.ValueSource(strings = { "", "   ", "  " })
+    void shouldThrowExceptionWhenStudentIdIsInvalid(String invalidStudentId) {
+        // Lines 13-14 coverage: invalid studentId
+        Course course = createCourse("Java Course");
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Progress(invalidStudentId, course);
+        });
+    }
+
+    @Test
+    void shouldThrowExceptionWhenStudentIdIsNull() {
+        // Lines 13-14 coverage: null studentId
+        Course course = createCourse("Java Course");
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Progress(null, course);
+        });
+    }
+
+    @Test
+    void shouldThrowExceptionWhenCourseIsNull() {
+        // Lines 16-17 coverage: null course
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Progress("student-123", null);
+        });
     }
 }
