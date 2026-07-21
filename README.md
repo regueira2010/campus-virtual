@@ -38,7 +38,7 @@ campus-virtual/
 
 ### Code Coverage Evidence
 
-![Code Coverage](docs/coverage_report.jpg)
+![Code Coverage](docs/coverage_report.png)
 
 ### Testing & Quality Assurance
 
