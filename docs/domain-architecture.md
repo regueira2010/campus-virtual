@@ -1,10 +1,9 @@
-# Domain Architecture & Design: Campus Virtual
+### Domain Architecture & Design: Campus Virtual
 
 This document outlines the architectural specifications, core domain design, ubiquitous language, business invariant matrix, and testing strategies implemented in the **Campus Virtual** pure domain core.
 
----
 
-## 1. Domain Overview & Ubiquitous Language
+### 1. Domain Overview & Ubiquitous Language
 
 Following the principles of **Domain-Driven Design (DDD)** and **Clean Architecture**, the core logic is isolated from database persistence frameworks (e.g., JPA/Hibernate) and framework environments (e.g., Spring Boot). The ubiquitous language represents the shared vocabulary of business concepts within the Campus Virtual context:
 
@@ -14,9 +13,8 @@ Following the principles of **Domain-Driven Design (DDD)** and **Clean Architect
 *   **Progress:** An entity tracking a student's navigation through a specific `Course`. It enforces the core educational flow constraints by ensuring linear learning.
 *   **NotificationService:** An outbound port (interface) used to send alerts to the external ecosystem (e.g., notifying admins about new courses). The domain core dictates the contract, and concrete infrastructure adapters implement it.
 
----
 
-## 2. Domain & Class Diagram
+### 2. Domain & Class Diagram
 
 The class diagram below illustrates the structural relationships, invariants, and dependency inversion pattern used to isolate the core domain from infrastructural operations.
 
@@ -94,9 +92,8 @@ classDiagram
     Content ..> InvalidContentTitleException : throws
 ```
 
----
 
-## 3. Business Rules & Invariants Matrix
+### 3. Business Rules & Invariants Matrix
 
 | Entity | Action | Rule / Invariant | Constraint & Exception |
 | :--- | :--- | :--- | :--- |
@@ -116,22 +113,22 @@ classDiagram
 | **Progress** | Complete Content | Completing already completed content is safely ignored without duplicate entries or errors. | Idempotent operation (No-Op) |
 | **Progress** | Calculate Advance | The percentage progress is calculated as: $\frac{\text{completed}}{\text{total}} \times 100.0$. Returns `0.0` if the course has no content. | Prevents division by zero safely |
 
----
 
-## 4. Testing & Quality Strategy
+
+### 4. Testing & Quality Strategy
 
 To satisfy the high-quality requirements of Hito 1, the test suite is engineered around absolute isolation and thorough validation:
 
-### 4.1 Unit Testing Framework (JUnit 5)
+#### 4.1 Unit Testing Framework (JUnit 5)
 *   Tests are structured using the formal **AAA (Arrange-Act-Assert)** pattern.
 *   Boundary conditions (empty strings, single character spaces, null arguments) are covered using JUnit 5 `@ParameterizedTest` and `@ValueSource`.
 *   Descriptive `@DisplayName` annotations are written on every test in English to document the business capability under review.
 
-### 4.2 Dependency Mocking (Mockito)
+#### 4.2 Dependency Mocking (Mockito)
 *   Outbound ports like `NotificationService` are mock-injected dynamically via Mockito's `@Mock` and `@BeforeEach` initialization.
 *   Interaction tests use `verify(mock, times(1))` to ensure side effects are fired properly.
 *   Java 25 dynamic attachment limits are bypassed safely in the test configuration using the JVM VM option `-Dnet.bytebuddy.experimental=true` in Surefire, enabling seamless inline mocking.
 
-### 4.3 Code Coverage (JaCoCo)
+#### 4.3 Code Coverage (JaCoCo)
 *   **100% Line and Branch Coverage** is enforced and validated programmatically using the `jacoco-maven-plugin`.
 *   Unused boilerplate classes have been removed to keep the coverage metrics focused strictly on the domain entities (`Course`, `Module`, `Content`, `Progress`).
