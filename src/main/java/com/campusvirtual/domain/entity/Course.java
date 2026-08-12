@@ -1,6 +1,5 @@
 package com.campusvirtual.domain.entity;
 
-import com.campusvirtual.domain.exception.InvalidTitleException;
 import com.campusvirtual.domain.valueobject.CourseTitle;
 
 import java.util.ArrayList;
