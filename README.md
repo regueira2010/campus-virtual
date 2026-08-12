@@ -60,3 +60,43 @@ mvn clean test jacoco:report
 
 After running the command above, you can find and open the detailed HTML coverage report at:
 * `target/site/jacoco/index.html`
+
+### Hito 3 - Arquitectura Limpia
+
+This project was refactored in Hito 3 to follow the principles of Clean Architecture / Hexagonal Architecture and tactical DDD. The codebase is strictly organized into three core layers:
+
+```text
+src/main/java/com/campusvirtual/
+├── application/                      # Application Layer: Use cases orchestrating application actions
+│   └── usecase/
+│       └── CreateCourseUseCase.java  # Use case for course creation
+├── domain/                           # Domain Layer: Pure business logic (entities, VOs, repos, exceptions)
+│   ├── entity/
+│   │   ├── Content.java              # Lesson content entity
+│   │   ├── Course.java               # Course aggregate root
+│   │   ├── Module.java               # Course module container
+│   │   ├── NotificationService.java  # Outbound notification port
+│   │   └── Progress.java             # Course progress tracker
+│   ├── exception/
+│   │   ├── InvalidContentTitleException.java
+│   │   ├── InvalidModuleTitleException.java
+│   │   └── InvalidTitleException.java
+│   ├── repository/
+│   │   └── CourseRepository.java     # Repository port interface
+│   └── valueobject/
+│       └── CourseTitle.java          # Value Object protecting course title invariants
+└── infrastructure/                   # Infrastructure Layer: External frameworks, DBs, adapters
+    └── persistence/
+        └── InMemoryCourseRepository.java # In-memory repository implementation (adapter)
+```
+
+#### Commands to verify the Hito 3 codebase:
+* **To compile and verify project layers:**
+  ```bash
+  mvn clean compile
+  ```
+* **To execute the decoupled test suite and verify coverage:**
+  ```bash
+  mvn test
+  ```
+

@@ -1,4 +1,5 @@
-package com.campusvirtual;
+package com.campusvirtual.domain.entity;
+import com.campusvirtual.domain.exception.InvalidModuleTitleException;
 
 import java.util.ArrayList;
 import java.util.List;

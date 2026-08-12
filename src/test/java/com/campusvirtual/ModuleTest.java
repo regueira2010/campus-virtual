@@ -1,5 +1,8 @@
 package com.campusvirtual;
 
+import com.campusvirtual.domain.entity.Module;
+import com.campusvirtual.domain.entity.Content;
+import com.campusvirtual.domain.exception.InvalidModuleTitleException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

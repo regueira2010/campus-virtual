@@ -1,28 +1,27 @@
-package com.campusvirtual;
+package com.campusvirtual.domain.entity;
+
+import com.campusvirtual.domain.exception.InvalidTitleException;
+import com.campusvirtual.domain.valueobject.CourseTitle;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class Course {
-    private String title;
+    private CourseTitle title;
     private String description;
     private String status;
     private List<Module> modules;
     private NotificationService notificationService;
 
     public Course(String title, String description, NotificationService notificationService) {
-        if (title == null || title.trim().isEmpty()) {
-            throw new InvalidTitleException("Course title cannot be empty");
-        }
-
-        this.title = title;
+        this.title = new CourseTitle(title);
         this.description = description;
         this.status = "DRAFT";
         this.modules = new ArrayList<>();
         this.notificationService = notificationService;
 
-        this.notificationService.send("admin@campus.com", "Course created: " + title);
+        this.notificationService.send("admin@campus.com", "Course created: " + this.title.value());
     }
 
     public void addModule(Module module) {
@@ -50,15 +49,12 @@ public class Course {
         if (!"DRAFT".equals(this.status)) {
             throw new IllegalStateException("Course information can only be updated in DRAFT status");
         }
-        if (newTitle == null || newTitle.trim().isEmpty()) {
-            throw new InvalidTitleException("Title cannot be empty");
-        }
-        this.title = newTitle;
+        this.title = new CourseTitle(newTitle);
         this.description = newDescription;
     }
 
     public String getTitle() {
-        return title;
+        return title.value();
     }
 
     public String getDescription() {

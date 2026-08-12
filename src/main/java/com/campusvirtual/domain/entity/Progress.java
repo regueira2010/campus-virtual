@@ -1,4 +1,4 @@
-package com.campusvirtual;
+package com.campusvirtual.domain.entity;
 
 import java.util.ArrayList;
 import java.util.Collections;

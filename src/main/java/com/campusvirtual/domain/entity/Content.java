@@ -1,11 +1,12 @@
-package com.campusvirtual;
+package com.campusvirtual.domain.entity;
+import com.campusvirtual.domain.exception.InvalidContentTitleException;
 
 import java.util.UUID;
 
 public class Content {
     private final String id;
     private final String title;
-    private final int order; // Sequential position within the course (e.g., 1, 2, 3...)
+    private final int order;
 
     public Content(String title, int order) {
         validateTitle(title);

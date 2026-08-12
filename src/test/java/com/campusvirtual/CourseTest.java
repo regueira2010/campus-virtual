@@ -1,5 +1,9 @@
 package com.campusvirtual;
 
+import com.campusvirtual.domain.entity.Course;
+import com.campusvirtual.domain.entity.Module;
+import com.campusvirtual.domain.entity.NotificationService;
+import com.campusvirtual.domain.exception.InvalidTitleException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

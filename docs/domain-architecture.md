@@ -132,3 +132,17 @@ To satisfy the high-quality requirements of Hito 1, the test suite is engineered
 #### 4.3 Code Coverage (JaCoCo)
 *   **100% Line and Branch Coverage** is enforced and validated programmatically using the `jacoco-maven-plugin`.
 *   Unused boilerplate classes have been removed to keep the coverage metrics focused strictly on the domain entities (`Course`, `Module`, `Content`, `Progress`).
+
+### 5. Hito 3 - Layered & Hexagonal Architecture Consolidation
+
+In Hito 3, the project transitioned into a fully decoupled, clean architectural layout based on Hexagonal and Domain-Driven Design (DDD) principles:
+
+*   **Domain Layer (`com.campusvirtual.domain`):** Contains pure entities, value objects, domain exceptions, and repository ports. It has zero external dependencies or framework-specific annotations.
+*   **Application Layer (`com.campusvirtual.application`):** Contains the Use Cases orchestrating course logic (`CreateCourseUseCase`). It accesses the domain through repository interfaces, injected via constructor injection.
+*   **Infrastructure Layer (`com.campusvirtual.infrastructure`):** Contains the concrete adapter implementations (`InMemoryCourseRepository`) that fulfill domain repository interfaces.
+
+#### Layered Code Coverage
+
+All layers are verified by a comprehensive unit testing suite, achieving 100% Line and Branch coverage. The JaCoCo coverage execution details are illustrated below:
+
+![Hito 3 Code Coverage](coverage_report_hito3.png)

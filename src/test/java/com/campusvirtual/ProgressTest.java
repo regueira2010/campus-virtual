@@ -1,5 +1,10 @@
 package com.campusvirtual;
 
+import com.campusvirtual.domain.entity.Course;
+import com.campusvirtual.domain.entity.Module;
+import com.campusvirtual.domain.entity.Content;
+import com.campusvirtual.domain.entity.Progress;
+import com.campusvirtual.domain.entity.NotificationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
